@@ -15,6 +15,9 @@ if f_temp and f_hum:
     h.columns = ["tiempo", "humedad"]
     df = t.merge(h, on="tiempo")
 
+    for c in ["temperatura", "humedad"]:
+        df[c] = pd.to_numeric(df[c].astype(str).str.replace(r"[^0-9.\-]", "", regex=True))
+
     with tab1:
         st.dataframe(df)
 
